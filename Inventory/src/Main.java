@@ -100,23 +100,56 @@ public class Main {
 
 }
     public static void update(int id) {
-        Scanner scanner = new Scanner(System.in);
-        for (Product product : listOfProducts) {
-            if (product.getProductId() == id) {
-                System.out.println("Enter new name: ");
-                product.setProductName(scanner.next());
-                System.out.println("Enter new price: ");
-                product.setProductPrice(scanner.nextInt());
-                System.out.println("Enter new description: ");
-                scanner.nextLine(); // consume newline
-                product.setProductDescription(scanner.nextLine());
-                System.out.println("Enter new quantity: ");
-                product.setProductQuantity(scanner.nextInt());
-                System.out.println("Product updated");
+        System.out.println("Enter the product Id to Update");
+        int id = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+
+        for (Product product : products) {
+            if (product.getId() == id) {
+                boolean updating = true;
+                while (updating) {
+                    System.out.println("Current details of the product:");
+                    System.out.println("Name: " + product.getName());
+                    System.out.println("Price: " + product.getPrice());
+                    System.out.println("Quantity: " + product.getQuantity());
+                    System.out.println("Choose the attribute to update:");
+                    System.out.println("1. Name");
+                    System.out.println("2. Price");
+                    System.out.println("3. Quantity");
+                    System.out.println("4. Exit update");
+
+                    int choice = scanner.nextInt();
+                    scanner.nextLine(); // Consume newline
+
+                    switch (choice) {
+                        case 1:
+                            System.out.println("Enter the new name of the product:");
+                            String name = scanner.nextLine();
+                            product.setName(name);
+                            break;
+                        case 2:
+                            System.out.println("Enter the new price of the product:");
+                            float price = scanner.nextFloat();
+                            product.setPrice(price);
+                            break;
+                        case 3:
+                            System.out.println("Enter the new quantity of the product:");
+                            int quantity = scanner.nextInt();
+                            product.setQuantity(quantity);
+                            break;
+                        case 4:
+                            updating = false;
+                            
+                            break;
+                        default:
+                            System.out.println("Invalid choice. Please try again.");
+                            break;
+                    }
+                }
                 return;
             }
         }
-        System.out.println("Product not found");
+        System.out.println("Product not found.");
     }
     public static void search(int id) {
         for (Product product : listOfProducts) {
